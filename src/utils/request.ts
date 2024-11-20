@@ -33,6 +33,8 @@ request.interceptors.response.use((response) => {
   //定义一个变量
   let message = ''
   //http状态码
+  console.log(errer.response);
+  
   let status = errer.response.status
   switch (status) {
     case 401:

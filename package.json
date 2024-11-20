@@ -13,7 +13,10 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.7",
+    "echarts": "^5.5.1",
+    "echarts-liquidfill": "^3.1.0",
     "element-plus": "^2.8.7",
+    "moment": "^2.30.1",
     "pinia": "^2.2.6",
     "progress": "^2.0.3",
     "vue": "^3.5.12",

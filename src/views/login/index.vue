@@ -3,19 +3,23 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-          <el-form ref="loginForms" :model="loginForm" :rules="rules" class="login_form">
-            <h1>hello</h1>
-            <h2>欢迎登录</h2>
-            <el-form-item prop="username">
-              <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input showPassword v-model="loginForm.password" type="password" :prefixIcon="Lock"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button :loading="loading" type="primary" @click="login">登录</el-button>
-            </el-form-item>
-          </el-form>
+        <el-form ref="loginForms" :model="loginForm" :rules="rules" class="login_form">
+          <div class="logo">
+            <img src="@/assets/icons/vite.svg" alt="">
+            <span>Vue-Admin</span>
+          </div>
+          <h1>hello</h1>
+          <h2>欢迎登录</h2>
+          <el-form-item prop="username">
+            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input showPassword v-model="loginForm.password" type="password" :prefixIcon="Lock"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button :loading="loading" type="primary" @click="login">登录</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
     </el-row>
   </div>
@@ -98,18 +102,75 @@ const rules = reactive({
 </script>
 
 <style lang="scss" scoped>
+/* 定义动画关键帧 */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .login_container{
   width: 100%;
   height: 100vh;
-  background:url('@/assets/images/background.jpg') no-repeat;
+  // background:url('@/assets/images/background.jpg') no-repeat;
   background-size: cover;
   .login_form {
-      width: 80%;
-      z-index: 99;
-      h1,
-      h2 {
-        color: white;
+    box-shadow: 0 0 9px 2px rgba(0, 0, 0, 0.2);
+    border:1px solid #e9e8e8;
+    border-radius: 10px;
+    padding:20px;
+    width: 60%;
+    z-index: 99;
+    margin-top:100px;
+    display: flex;
+    flex-direction: column;
+    .logo{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap:20px;
+      img{
+        height: 50px;
+      }
+      span{
+        // color:white;
+        font-size:34px;
       }
     }
+    h1,
+    h2 {
+      // color: white;
+      font-size:24px;
+      font-weight: 600;
+      margin:10px 0;
+      }
+      h2{
+        margin-bottom: 20px;
+      }
+      h1{
+        margin-top:30px;
+      }
+    }
+    // .login_form::before {
+    //   content: '';
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   backdrop-filter: blur(10px);
+    //   /* 调整模糊程度 */
+    //   -webkit-backdrop-filter: blur(10px);
+    //   /* Safari */
+    //   z-index: -3;
+    // }
 }
 </style>
