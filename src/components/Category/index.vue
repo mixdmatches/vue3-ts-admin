@@ -2,21 +2,48 @@
   <el-card shadow="never">
     <el-form inline="true">
       <el-form-item label="一级分类">
-        <el-select :disabled="sence === 0 ? true : false" @change="handler" v-model="categoryStore.c1Id"
-          style="width: 240px">
+        <el-select
+          :disabled="sence === 0 ? true : false"
+          @change="handler"
+          v-model="categoryStore.c1Id"
+          style="width: 240px"
+        >
           <!-- label即为显示的属性 value即为下拉菜单的数据-->
-          <el-option v-for="c1 in categoryStore.c1List" :key="c1.id" :label="c1.name" :value="c1.id"></el-option>
+          <el-option
+            v-for="c1 in categoryStore.c1List"
+            :key="c1.id"
+            :label="c1.name"
+            :value="c1.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="二级分类">
-        <el-select :disabled="sence === 0 ? true : false" @change="handler1" style="width: 240px"
-          v-model="categoryStore.c2Id">
-          <el-option v-for="c2 in categoryStore.c2List" :key="c2.id" :label="c2.name" :value="c2.id"></el-option>
+        <el-select
+          :disabled="sence === 0 ? true : false"
+          @change="handler1"
+          style="width: 240px"
+          v-model="categoryStore.c2Id"
+        >
+          <el-option
+            v-for="c2 in categoryStore.c2List"
+            :key="c2.id"
+            :label="c2.name"
+            :value="c2.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="三级分类">
-        <el-select :disabled="sence === 0 ? true : false" style="width: 240px" v-model="categoryStore.c3Id">
-          <el-option v-for="c3 in categoryStore.c3List" :key="c3.id" :label="c3.name" :value="c3.id"></el-option>
+        <el-select
+          :disabled="sence === 0 ? true : false"
+          style="width: 240px"
+          v-model="categoryStore.c3Id"
+        >
+          <el-option
+            v-for="c3 in categoryStore.c3List"
+            :key="c3.id"
+            :label="c3.name"
+            :value="c3.id"
+          ></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -60,6 +87,4 @@ const handler1 = () => {
 defineProps(['sence'])
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

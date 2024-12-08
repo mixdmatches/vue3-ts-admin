@@ -7,15 +7,14 @@ import Category from './Category/index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const allGloablComponent: any = { SvgIcon, Pagination, Category }
-console.log(allGloablComponent,'a')
-
+console.log(allGloablComponent, 'a')
 
 //对外暴露插件对象
 export default {
   //必须叫install方法
-  install(app:any) {
+  install(app: any) {
     //注册项目的全局组件
-    Object.keys(allGloablComponent).forEach(key => {
+    Object.keys(allGloablComponent).forEach((key) => {
       //注册为全局组件
       app.component(key, allGloablComponent[key])
     })
@@ -24,5 +23,5 @@ export default {
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }
-  }
+  },
 }
