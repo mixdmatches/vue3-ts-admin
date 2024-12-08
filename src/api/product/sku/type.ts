@@ -10,12 +10,14 @@ export interface Attr {
   id?: number | string;
   attrId: number | string;
   valueId: number | string;
+  valueName: string;
 }
 
 export interface saleAttr {
   id?: number | string;
   saleAttrId: number | string;
   saleAttrValueId: number | string;
+  saleAttrValueName: string;
 }
 
 export interface SkuData {
@@ -31,8 +33,12 @@ export interface SkuData {
   skuDefaultImg?: string;
   isSale?: number;
   id?: number;
+  skuImageList: ImageItem[];
 }
-
+type ImageItem = {
+  id?: number;
+  imgUrl?: string;
+};
 // 获取SKU接口返回数据类型
 export interface SkuResponseData extends ResponeseData {
   data: {
