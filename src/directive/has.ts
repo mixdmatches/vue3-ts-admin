@@ -1,7 +1,7 @@
 import pinia from "@/store";
 import useUserStore from "@/store/modules/user";
 
-let userStore = useUserStore(pinia);
+const userStore = useUserStore(pinia);
 // 全局自定义指令
 export const isHasButton = (app: any) => {
   // 获取对应的用户仓库

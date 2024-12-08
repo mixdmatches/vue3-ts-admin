@@ -38,83 +38,82 @@ import Rank from './components/rank/index.vue'
 import Year from './components/year/index.vue'
 import Counter from './components/counter/index.vue'
 
-let screen = ref();
+let screen = ref()
 onMounted(() => {
   screen.value.style.transform = `scale(${getScale()}) translate(-50%,-50%)`
 })
 
 //定义大屏缩放比例
 function getScale(w = 1920, h = 1080) {
-  const ww = window.innerWidth / w;
-  const wh = window.innerHeight / h;
-  return ww < wh ? ww : wh;
+  const ww = window.innerWidth / w
+  const wh = window.innerHeight / h
+  return ww < wh ? ww : wh
 }
 
 //监听视口变化
 window.onresize = () => {
-  screen.value.style.transform  = `scale(${getScale()}) translate(-50%,-50%)`
+  screen.value.style.transform = `scale(${getScale()}) translate(-50%,-50%)`
 }
 </script>
 
 <style scoped lang="scss">
-.container{
+.container {
   width: 100vw;
   height: 100vh;
   background: url(./images/bg.png) no-repeat;
-  background-size:cover;
-  .screen{
+  background-size: cover;
+  .screen {
     position: fixed;
     width: 1920px;
     height: 1080px;
-    left:50%;
-    top:50%;
-    transform-origin:left top;
-    .top{
+    left: 50%;
+    top: 50%;
+    transform-origin: left top;
+    .top {
       width: 100%;
       height: 40px;
     }
-    .bottom{
+    .bottom {
       display: flex;
-      .right{
-        flex:1;
+      .right {
+        flex: 1;
         display: flex;
         flex-direction: column;
         // margin-left:20px;
-        .rank{
-          flex:1.5;
+        .rank {
+          flex: 1.5;
         }
-        .year{
-          flex:1;
+        .year {
+          flex: 1;
         }
-        .counter{
-          flex:1;
+        .counter {
+          flex: 1;
         }
       }
-      .left{
-        flex:1;
+      .left {
+        flex: 1;
         display: flex;
-        height:1040px;
-        flex-direction:column;
-        .tourist{
-          flex:1.2;
+        height: 1040px;
+        flex-direction: column;
+        .tourist {
+          flex: 1.2;
         }
-        .sex{
-          flex:1;
+        .sex {
+          flex: 1;
         }
-        .age{
-          flex:1;
+        .age {
+          flex: 1;
         }
       }
-      .center{
-        flex:2;
+      .center {
+        flex: 2;
         display: flex;
         flex-direction: column;
-        margin:0 20px;
-        .map{
-          flex:3;
-          
+        margin: 0 20px;
+        .map {
+          flex: 3;
         }
-        .line{
+        .line {
           flex: 1;
         }
       }

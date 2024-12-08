@@ -16,7 +16,7 @@
           size="small"
           :disabled="row.level === 4 ? true : false"
           @click="handleAdd(row)"
-          >添加{{ row.level === 3 ? "功能" : "菜单" }}</el-button
+          >添加{{ row.level === 3 ? '功能' : '菜单' }}</el-button
         >
         <el-button
           type="primary"
@@ -70,83 +70,83 @@
 </template>
 
 <script setup lang="ts">
-import { reqMenuList, reqAddOrUpdateMenu, reqDeleteMenu } from "@/api/acl/menu";
-import { ref, onMounted } from "vue";
-import { ElMessage } from "element-plus";
+import { reqMenuList, reqAddOrUpdateMenu, reqDeleteMenu } from '@/api/acl/menu'
+import { ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
 import type {
   premissionResponseData,
   premissionList,
   premission,
   MenuParams,
-} from "@/api/acl/menu/type";
+} from '@/api/acl/menu/type'
 
 // 菜单列表
-let permissionList = ref<premissionList>([]);
+let permissionList = ref<premissionList>([])
 
 // 页面渲染获取菜单列表
 onMounted(() => {
-  getHasPermission();
-});
+  getHasPermission()
+})
 
 // 获取菜单列表
 const getHasPermission = async () => {
-  const res: premissionResponseData = await reqMenuList();
+  const res: premissionResponseData = await reqMenuList()
   if (res.code === 200) {
-    permissionList.value = res.data;
+    permissionList.value = res.data
   }
-};
+}
 
 // 携带的参数
 const menuParams = ref<MenuParams>({
-  name: "",
-  code: "",
+  name: '',
+  code: '',
   pid: 0,
   level: 1,
-});
+})
 
 // 控制对话框显示与隐藏
-const dialogVisible = ref(false);
+const dialogVisible = ref(false)
 // 添加菜单按钮
 const handleAdd = (row: premission) => {
   Object.assign(menuParams.value, {
     id: 0,
-    name: "",
-    code: "",
+    name: '',
+    code: '',
     pid: 0,
     level: 1,
-  });
+  })
   // 收集新增菜单的level
-  menuParams.value.level = row.level + 1;
+  menuParams.value.level = row.level + 1
   // 给谁新增子菜单
-  menuParams.value.pid = row.id as number;
-  dialogVisible.value = true;
-};
+  menuParams.value.pid = row.id as number
+  dialogVisible.value = true
+}
 // 编辑菜单按钮
 const handleEdit = (row: premission) => {
   // 收集数据,将row的所有属性拷贝到menuParams中
-  Object.assign(menuParams.value, row);
-  dialogVisible.value = true;
-};
+  Object.assign(menuParams.value, row)
+  dialogVisible.value = true
+}
 // 确定按钮回调
 const save = async () => {
   // 发请求
-  const res = await reqAddOrUpdateMenu(menuParams.value);
-  console.log(res);
+  const res = await reqAddOrUpdateMenu(menuParams.value)
+  console.log(res)
   if (res.code === 200) {
-    getHasPermission();
-    ElMessage.success(menuParams.value.id ? "更新成功" : "添加成功");
-    dialogVisible.value = false;
+    getHasPermission()
+    ElMessage.success(menuParams.value.id ? '更新成功' : '添加成功')
+    dialogVisible.value = false
   }
-};
+}
 // 删除菜单
 const handleDelete = async (id: number) => {
   // 发请求
-  const res = await reqDeleteMenu(id);
+  const res = await reqDeleteMenu(id)
   if (res.code === 200) {
-    getHasPermission();
-    ElMessage.success("删除成功");
+    getHasPermission()
+    ElMessage.success('删除成功')
   }
-};
+}
 </script>
 
 <style scoped></style>

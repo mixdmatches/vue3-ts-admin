@@ -106,7 +106,7 @@
     <!-- 添加更新 -->
     <el-drawer v-model="drawer">
       <template #header>
-        <h4>{{ userParams.id ? "修改用户" : "添加用户" }}</h4>
+        <h4>{{ userParams.id ? '修改用户' : '添加用户' }}</h4>
       </template>
       <template #default>
         <el-form ref="formRef" :model="userParams" :rules="rules">
@@ -183,9 +183,9 @@
 </template>
 
 <script setup lang="ts">
-import useLayOutSettingStore from "@/store/modules/setting";
-import { ref, onMounted, reactive, nextTick } from "vue";
-import { ElMessage } from "element-plus";
+import useLayOutSettingStore from '@/store/modules/setting'
+import { ref, onMounted, reactive, nextTick } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   getUserList,
   reqAddOrUpdataUser,
@@ -193,231 +193,231 @@ import {
   reqSetUserRole,
   reqDeleteUser,
   reqDeleteUserBatch,
-} from "@/api/acl/user/index";
+} from '@/api/acl/user/index'
 import type {
   User,
   UserResponseData,
   RoleData,
   AllRoleResponseData,
   SetRoleData,
-} from "@/api/acl/user/type";
-let page = ref(1);
-let limit = ref(3);
-let total = ref(0);
-let userList = ref<User[]>([]);
+} from '@/api/acl/user/type'
+let page = ref(1)
+let limit = ref(3)
+let total = ref(0)
+let userList = ref<User[]>([])
 const getHasUer = async () => {
   const res: UserResponseData = await getUserList(
     page.value,
     limit.value,
-    keyWords.value
-  );
-  console.log(res, "user");
-  userList.value = res.data.records;
-  total.value = res.data.total;
-};
+    keyWords.value,
+  )
+  console.log(res, 'user')
+  userList.value = res.data.records
+  total.value = res.data.total
+}
 
 onMounted(() => {
-  getHasUer();
-});
+  getHasUer()
+})
 
-const formRef = ref();
+const formRef = ref()
 
-const settingStore = useLayOutSettingStore();
+const settingStore = useLayOutSettingStore()
 // 表单
 const userParams = reactive<User>({
-  name: "",
-  username: "",
-  password: "",
-});
+  name: '',
+  username: '',
+  password: '',
+})
 
 // 自定义校验规则对象
 const ValidatorUsername = (_roles: any, value: any, callBack: any) => {
   if (value.trim().length >= 5) {
-    callBack();
+    callBack()
   } else {
-    callBack(new Error("用户名字长度至少5位"));
+    callBack(new Error('用户名字长度至少5位'))
   }
-};
+}
 
 const ValidatorName = (_rules: any, value: any, callBack: any) => {
   if (value.trim().length >= 5) {
-    callBack();
+    callBack()
   } else {
-    callBack(new Error("用户昵称长度至少5位"));
+    callBack(new Error('用户昵称长度至少5位'))
   }
-};
+}
 
 const ValidatorPassword = (_rules: any, value: any, callBack: any) => {
   if (value.trim().length >= 6) {
-    callBack();
+    callBack()
   } else {
-    callBack(new Error("密码长度不能小于6"));
+    callBack(new Error('密码长度不能小于6'))
   }
-};
+}
 // 表单校验规则
 const rules = ref({
   name: [
     {
       required: true,
-      trigger: "blur",
+      trigger: 'blur',
       validator: ValidatorName,
     },
   ],
   username: [
     {
       required: true,
-      trigger: "blur",
+      trigger: 'blur',
       validator: ValidatorUsername,
     },
   ],
   password: [
     {
       required: true,
-      trigger: "blur",
+      trigger: 'blur',
       validator: ValidatorPassword,
     },
   ],
-});
+})
 
-let drawer = ref(false);
+let drawer = ref(false)
 const addUser = () => {
   //第一次点击时还没有form组件
   // 要获取更新后的dom，需要使用nextTick
   // 清除上一次错误的提示信息
   nextTick(() => {
-    formRef.value.clearValidate("username");
-    formRef.value.clearValidate("name");
-    formRef.value.clearValidate("password");
-  });
-  6;
-  drawer.value = true;
+    formRef.value.clearValidate('username')
+    formRef.value.clearValidate('name')
+    formRef.value.clearValidate('password')
+  })
+  6
+  drawer.value = true
   Object.assign(userParams, {
-    name: "",
-    username: "",
-    password: "",
-    id: "",
-  });
-};
+    name: '',
+    username: '',
+    password: '',
+    id: '',
+  })
+}
 
 const updataUser = (row: User) => {
-  drawer.value = true;
+  drawer.value = true
   // 收集数据
-  Object.assign(userParams, row);
+  Object.assign(userParams, row)
   // 清除上一次错误的提示信息
   nextTick(() => {
-    formRef.value.clearValidate("username");
-    formRef.value.clearValidate("name");
-  });
-};
+    formRef.value.clearValidate('username')
+    formRef.value.clearValidate('name')
+  })
+}
 
 const save = async () => {
-  await formRef.value.validate();
-  const res = await reqAddOrUpdataUser(userParams);
+  await formRef.value.validate()
+  const res = await reqAddOrUpdataUser(userParams)
   if (res.code === 200) {
-    drawer.value = false;
-    ElMessage.success(userParams.id ? "修改成功" : "添加成功");
-    page.value = 1;
-    getHasUer();
+    drawer.value = false
+    ElMessage.success(userParams.id ? '修改成功' : '添加成功')
+    page.value = 1
+    getHasUer()
   } else {
-    ElMessage.error(userParams.id ? "修改失败" : "添加失败");
+    ElMessage.error(userParams.id ? '修改失败' : '添加失败')
   }
-};
+}
 
 //取消按钮回调
 const cancel = () => {
-  drawer.value = false;
-};
+  drawer.value = false
+}
 
 //控制分配角色的显示与隐藏
-let drawer2 = ref(false);
+let drawer2 = ref(false)
 // 分配角色按钮回调
 const setRole = async (row: User) => {
-  console.log(row);
+  console.log(row)
   // 存储已有用户信息
-  Object.assign(userParams, row);
-  const res: AllRoleResponseData = await reqAllRole(userParams.id as number);
+  Object.assign(userParams, row)
+  const res: AllRoleResponseData = await reqAllRole(userParams.id as number)
   if (res.code === 200) {
     // 存储全部的职位
-    allRole.value = res.data.allRolesList;
+    allRole.value = res.data.allRolesList
     //存储当前用户已有的职位
-    userRole.value = res.data.assignRoles;
-    drawer2.value = true;
+    userRole.value = res.data.assignRoles
+    drawer2.value = true
   }
-};
+}
 
 //全选复选框收集数据
-let checkAll = ref(false);
+let checkAll = ref(false)
 // 全部的职位
-let allRole = ref<RoleData[]>([]);
+let allRole = ref<RoleData[]>([])
 // 当前用户已有的职位
-let userRole = ref<RoleData[]>([]);
-let isIndeterminate = ref(true);
+let userRole = ref<RoleData[]>([])
+let isIndeterminate = ref(true)
 const handleCheckAllChange = (val: boolean) => {
-  userRole.value = val ? allRole.value : [];
-  isIndeterminate.value = false;
-};
+  userRole.value = val ? allRole.value : []
+  isIndeterminate.value = false
+}
 
 const handleCheckedCitiesChange = (value: string[]) => {
-  const checkedCount = value.length;
-  checkAll.value = checkedCount === allRole.value.length;
-  isIndeterminate.value = !(checkedCount === allRole.value.length);
-};
+  const checkedCount = value.length
+  checkAll.value = checkedCount === allRole.value.length
+  isIndeterminate.value = !(checkedCount === allRole.value.length)
+}
 
 const confirmClick = async () => {
   let data: SetRoleData = {
     userId: userParams.id as number,
     roleIdList: userRole.value.map((item) => item.id as number),
-  };
-  const res = await reqSetUserRole(data);
-  if (res.code === 200) {
-    ElMessage.success("分配成功");
-    drawer2.value = false;
-    getHasUer();
-  } else {
-    ElMessage.error("分配失败");
   }
-};
+  const res = await reqSetUserRole(data)
+  if (res.code === 200) {
+    ElMessage.success('分配成功')
+    drawer2.value = false
+    getHasUer()
+  } else {
+    ElMessage.error('分配失败')
+  }
+}
 
 // 删除单个用户按钮回调
 const deleteUser = async (id: number) => {
-  const res = await reqDeleteUser(id);
+  const res = await reqDeleteUser(id)
   if (res.code === 200) {
-    ElMessage.success("删除成功");
-    getHasUer();
+    ElMessage.success('删除成功')
+    getHasUer()
   } else {
-    ElMessage.error("删除失败");
+    ElMessage.error('删除失败')
   }
-};
+}
 
 //准备一个数组存储批量删除的id
-let selectIds = ref<User[]>([]);
+let selectIds = ref<User[]>([])
 // 批量删除按钮回调
 const selectChange = (newSelection: any) => {
-  selectIds.value = newSelection;
-};
+  selectIds.value = newSelection
+}
 
 //批量删除用户按钮回调
 const deleteSeletcUsers = async () => {
-  let idList = selectIds.value.map((item) => item.id);
-  const res = await reqDeleteUserBatch(idList as number[]);
+  let idList = selectIds.value.map((item) => item.id)
+  const res = await reqDeleteUserBatch(idList as number[])
   if (res.code === 200) {
-    ElMessage.success("批量删除成功");
-    getHasUer();
+    ElMessage.success('批量删除成功')
+    getHasUer()
   } else {
-    ElMessage.error("批量删除失败");
+    ElMessage.error('批量删除失败')
   }
-};
+}
 
 //搜索关键字
-let keyWords = ref("");
+let keyWords = ref('')
 const search = () => {
-  getHasUer();
-  keyWords.value = "";
-};
+  getHasUer()
+  keyWords.value = ''
+}
 
 const reset = () => {
-  settingStore.refsh = !settingStore.refsh;
-};
+  settingStore.refsh = !settingStore.refsh
+}
 </script>
 
 <style scoped></style>
