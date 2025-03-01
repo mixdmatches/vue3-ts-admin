@@ -67,12 +67,10 @@ const useUserStore = defineStore('User', {
         this.username = res.data.name
         this.avatar = res.data.avatar
         // 计算当前用户需要展示的路由
-        console.log('计算前')
         const userAsyncRoutes = filterAsyncRoute(
           cloneDeeep(asyncRoute),
           res.data.routes,
         )
-        console.log('计算后')
 
         // 菜单需要的路由数据整理完毕
         this.menuRoutes = [...constantRoute, ...userAsyncRoutes, anyRoute]
@@ -80,7 +78,6 @@ const useUserStore = defineStore('User', {
         ;[...userAsyncRoutes, anyRoute].forEach((item) => {
           router.addRoute(item)
         })
-        console.log(router.getRoutes(), 'routersaaaa')
         // 按钮的权限
         this.buttons = res.data.buttons
         return 'ok'

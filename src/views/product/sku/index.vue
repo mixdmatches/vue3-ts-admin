@@ -135,87 +135,87 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from "element-plus";
+import { ElMessage } from 'element-plus'
 import {
   reqSkuList,
   reqSaleSku,
   reqCanselSku,
   reqSkuInfo,
   reqDeleteSku,
-} from "@/api/product/sku/index";
-import { ref, onMounted } from "vue";
+} from '@/api/product/sku/index'
+import { ref, onMounted } from 'vue'
 import type {
   SkuResponseData,
   SkuData,
   SkuInfoData,
-} from "@/api/product/sku/type";
+} from '@/api/product/sku/type'
 // 分页器当前页码
-let pageNo = ref(1);
-let pageSize = ref(10);
-let total = ref(0);
-let skuList = ref<SkuData[]>([]);
+let pageNo = ref(1)
+let pageSize = ref(10)
+let total = ref(0)
+let skuList = ref<SkuData[]>([])
 // 控制抽屉显示与隐藏
-let drawer = ref(false);
+let drawer = ref(false)
 //pager 分页器的变化
 const getHasSku = async (pager = 1) => {
-  pageNo.value = pager;
-  const res: SkuResponseData = await reqSkuList(pageNo.value, pageSize.value);
-  skuList.value = res.data.records;
-  total.value = res.data.total;
-};
+  pageNo.value = pager
+  const res: SkuResponseData = await reqSkuList(pageNo.value, pageSize.value)
+  skuList.value = res.data.records
+  total.value = res.data.total
+}
 const handler = () => {
   // 不用收集数据，v-model已经收集到了，直接发送请求就好了
-  getHasSku();
-};
+  getHasSku()
+}
 // 下架上架
 const updateSale = async (row: SkuData) => {
   if (row.isSale == 1) {
-    await reqCanselSku(row.id as number);
-    ElMessage.success("下架成功");
-    getHasSku(pageNo.value);
+    await reqCanselSku(row.id as number)
+    ElMessage.success('下架成功')
+    getHasSku(pageNo.value)
   } else {
-    await reqSaleSku(row.id as number);
-    ElMessage.success("上架成功");
-    getHasSku(pageNo.value);
+    await reqSaleSku(row.id as number)
+    ElMessage.success('上架成功')
+    getHasSku(pageNo.value)
   }
-};
+}
 
 const skuInfo = ref<SkuData>({
-  category3Id: "",
-  spuId: "",
-  tmId: "",
-  skuName: "",
-  price: "",
-  weight: "",
-  skuDesc: "",
+  category3Id: '',
+  spuId: '',
+  tmId: '',
+  skuName: '',
+  price: '',
+  weight: '',
+  skuDesc: '',
   skuAttrValueList: [],
   skuSaleAttrValueList: [],
-  skuDefaultImg: "",
+  skuDefaultImg: '',
   isSale: 0,
   id: 0,
   skuImageList: [],
-});
+})
 // 点击查看详情
 const findSku = async (row: SkuData) => {
-  drawer.value = true;
-  const res: SkuInfoData = await reqSkuInfo(row.id as number);
-  console.log(res, "info");
-  skuInfo.value = res.data;
-  console.log(skuInfo.value, "info");
-};
+  drawer.value = true
+  const res: SkuInfoData = await reqSkuInfo(row.id as number)
+  console.log(res, 'info')
+  skuInfo.value = res.data
+  console.log(skuInfo.value, 'info')
+}
 // 删除
 const deleteSku = async (skuId: number) => {
-  const res = await reqDeleteSku(skuId);
+  const res = await reqDeleteSku(skuId)
   if (res.code === 200) {
-    ElMessage.success("删除成功");
-    getHasSku();
+    ElMessage.success('删除成功')
+    getHasSku()
   } else {
-    ElMessage.error("系统数据无法删除");
+    ElMessage.error('系统数据无法删除')
   }
-};
+}
 onMounted(() => {
-  getHasSku();
-});
+  getHasSku()
+})
 </script>
 
 <style scoped>

@@ -5,7 +5,7 @@
       <h1>{{ getTime() }}好ʕ •ᴥ•ʔAdmin</h1>
       <p>Vue-Admin</p>
     </div>
-    <img src="@/assets/images/coffee-BJTYvIRC.svg" alt="" />
+    <!-- <img src="@/assets/images/coffee-BJTYvIRC.svg" alt="" /> -->
   </div>
   <el-card shadow="never" style="margin: 30px 0">
     <template #header>

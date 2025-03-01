@@ -9,14 +9,12 @@
       <span v-for="item in people" :key="item">{{ item }}</span>
     </div>
     <!-- 盒子echarts展示图形 -->
-    <div class="charts" ref="charts">
-
-    </div>
+    <div class="charts" ref="charts"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 // 水球图拓展插件
 import 'echarts-liquidfill'
@@ -29,7 +27,7 @@ onMounted(() => {
   mycharts.setOption({
     //标题组件
     title: {
-      text:"水球图"
+      text: '水球图',
     },
     //x轴组件
     xAxis: {},
@@ -37,68 +35,67 @@ onMounted(() => {
     yAxis: {},
     //系列：决定你展示什么样的图形图标
     series: {
-      type:"liquidFill",
+      type: 'liquidFill',
       data: [0.5, 0.4, 0.2],
-      waveAnimation: true,//动画
-      animationDuration: 3,//动画时长
-      animationDurationUpdate: 0,//动画时长更新
-      radius:'100%'//半径
+      waveAnimation: true, //动画
+      animationDuration: 3, //动画时长
+      animationDurationUpdate: 0, //动画时长更新
+      radius: '100%', //半径
     },
     //布局组件
     grid: {
       left: 0,
       right: 0,
       top: 0,
-      bottom:0,
-    }
+      bottom: 0,
+    },
   })
 })
 </script>
 
 <style scoped lang="scss">
-.box{
-  background:url(../../images/dataScreen-main-lb.png) no-repeat;
-  background-size:100% 100%;
-  margin-top:10px;
-  .top{
+.box {
+  background: url(../../images/dataScreen-main-lb.png) no-repeat;
+  background-size: 100% 100%;
+  margin-top: 10px;
+  .top {
     margin-left: 20px;
-    .title{
-      color:white;
-      font-size:20px;
-      
+    .title {
+      color: white;
+      font-size: 20px;
     }
-    .bg{
+    .bg {
       width: 68px;
       height: 7px;
       background: url(../../images/dataScreen-title.png) no-repeat;
-      margin-top:10px;
+      margin-top: 10px;
     }
-    .right{
+    .right {
       float: right;
-      color:white;
-      font-size:20px;
-      span{
-        color:yellowgreen
+      color: white;
+      font-size: 20px;
+      span {
+        color: yellowgreen;
       }
     }
   }
-  .number{
+  .number {
     padding: 10px;
-    margin-top:30px;
+    margin-top: 30px;
     display: flex;
-    span{
-      flex:1;
-      height:40px;
+    span {
+      flex: 1;
+      height: 40px;
       text-align: center;
       line-height: 40px;
       background: url(../../images/total.png) no-repeat;
-      background-size:100% 100%;
+      background-size: 100% 100%;
       color: #29fcff;
     }
   }
-  .charts{
+  .charts {
     width: 100%;
-    height:250px;
+    height: 250px;
   }
 }
 </style>

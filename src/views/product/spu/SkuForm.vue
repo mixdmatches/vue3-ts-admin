@@ -86,120 +86,119 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { ElMessage } from "element-plus";
-import type { SkuData } from "@/api/product/spu/type";
-let $emit = defineEmits(["changeScence"]);
+import { ref, reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { SkuData } from '@/api/product/spu/type'
+let $emit = defineEmits(['changeScence'])
 // i引入API
-import { reqAttr } from "@/api/product/attr";
+import { reqAttr } from '@/api/product/attr'
 import {
   reqSpuImageList,
   reqSpuHasSaleAttr,
   reqAddSku,
-  
-} from "@/api/product/spu";
+} from '@/api/product/spu'
 // 平台属性
-let attrArr = ref<any>([]);
+let attrArr = ref<any>([])
 // 销售属性
-let saleArr = ref<any>([]);
+let saleArr = ref<any>([])
 // 照片数据
-let imgArr = ref<any>([]);
+let imgArr = ref<any>([])
 // 获取table组件实例
-let tableRef = ref();
+let tableRef = ref()
 // 收集Sku参数
 let skuParams = reactive<SkuData>({
-  category3Id: "",
-  spuId: "",
-  tmId: "",
+  category3Id: '',
+  spuId: '',
+  tmId: '',
   // v-model收集
-  skuName: "",
-  price: "",
-  weight: "",
-  skuDesc: "",
+  skuName: '',
+  price: '',
+  weight: '',
+  skuDesc: '',
 
   skuAttrValueList: [],
   skuSaleAttrValueList: [],
-  skuDefaultImg: "",
-});
+  skuDefaultImg: '',
+})
 // 取消按钮回调
 const cancel = () => {
-  $emit("changeScence", 0);
-};
+  $emit('changeScence', 0)
+}
 // 保存按钮回调
 const save = async () => {
   //整理参数
   //平台属性
   skuParams.skuAttrValueList = attrArr.value.reduce((prev: any, next: any) => {
     if (next.attrIdAndValueId) {
-      let [attrId, valueId] = next.attrIdAndValueId.split(":");
+      let [attrId, valueId] = next.attrIdAndValueId.split(':')
       prev.push({
         attrId: attrId,
         attrValueId: valueId,
-      });
+      })
     }
-    return prev;
-  }, []);
+    return prev
+  }, [])
   // 销售属性
   skuParams.skuSaleAttrValueList = saleArr.value.reduce(
     (prev: any, next: any) => {
       if (next.saleIdAndValueId) {
-        let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(":");
+        let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(':')
         prev.push({
           saleAttrId,
           saleAttrValueId,
-        });
+        })
       }
-      return prev;
+      return prev
     },
-    []
-  );
+    [],
+  )
   //发请求
-  let result = await reqAddSku(skuParams);
+  let result = await reqAddSku(skuParams)
   if (result.code === 200) {
-    ElMessage({ type: "success", message: "添加成功" });
+    ElMessage({ type: 'success', message: '添加成功' })
     // 通知父组件切换场景名
-    $emit("changeScence", 0);
+    $emit('changeScence', 0)
   } else {
-    ElMessage({ type: "error", message: "添加失败" });
+    ElMessage({ type: 'error', message: '添加失败' })
   }
-};
+}
 // 设置默认图片
 const handler = (row: any) => {
   // 选中的行
-  console.log(row);
+  console.log(row)
   // 取消所有选中
   imgArr.value.forEach((item: any) => {
-    tableRef.value.toggleRowSelection(item, false);
-  });
+    tableRef.value.toggleRowSelection(item, false)
+  })
   // 复选框选中
-  tableRef.value.toggleRowSelection(row, true);
+  tableRef.value.toggleRowSelection(row, true)
   // 收集图片地址
-  skuParams.skuDefaultImg = row.imgUrl;
-};
+  skuParams.skuDefaultImg = row.imgUrl
+}
 
 // 对外暴露
 const initSkuData = async (
   c1Id: number | string,
   c2Id: number | string,
-  spu: any
+  spu: any,
 ) => {
   // 收集数据
-  skuParams.category3Id = spu.category3Id;
-  skuParams.spuId = spu.id;
-  skuParams.tmId = spu.tmId;
+  skuParams.category3Id = spu.category3Id
+  skuParams.spuId = spu.id
+  skuParams.tmId = spu.tmId
   // 获取平台属性
-  let res = await reqAttr(c1Id, c2Id, spu.category3Id);
+  let res = await reqAttr(c1Id, c2Id, spu.category3Id)
   // 获取销售属性
-  let res2 = await reqSpuHasSaleAttr(spu.id);
+  let res2 = await reqSpuHasSaleAttr(spu.id)
   // 获取spu图片
-  let res3 = await reqSpuImageList(spu.id);
-  attrArr.value = res.data;
-  saleArr.value = res2.data;
-  imgArr.value = res3.data;
-};
+  let res3 = await reqSpuImageList(spu.id)
+  attrArr.value = res.data
+  saleArr.value = res2.data
+  imgArr.value = res3.data
+}
 defineExpose({
   initSkuData,
-});
+})
 </script>
 
 <style scoped></style>

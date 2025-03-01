@@ -2,7 +2,7 @@
   <div class="box6">
     <div class="title">
       <p>热门景区排行</p>
-      <img src="../../images/dataScreen-title.png" alt="">
+      <img src="../../images/dataScreen-title.png" alt="" />
     </div>
     <div class="charts" ref="charts"></div>
   </div>
@@ -24,20 +24,20 @@ onMounted(() => {
       textStyle: {
         color: 'yellowgreen',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       },
       // 子标题
       subtext: '各大景区排行',
       //子标题文字样式
       subtextStyle: {
         color: 'yellowgreen',
-        fontSize: 14
-      }
+        fontSize: 14,
+      },
     },
     xAxis: {
-      type:'category',//图形图表在x轴上均匀分布展示
+      type: 'category', //图形图表在x轴上均匀分布展示
     },
-    yAxis:{},
+    yAxis: {},
     //布局组件
     grid: {
       left: 20,
@@ -49,51 +49,53 @@ onMounted(() => {
         type: 'bar',
         data: [10, 20, 30, 40, 50, 60],
         //柱状图的：图形上的文本标签
-        
+
         label: {
           show: true,
           //文字位置
           position: 'insideTop',
           //文字颜色
-          color:'yellowgreen'
+          color: 'yellowgreen',
         },
         //是否显示背景颜色
         showBackground: true,
         backgroundStyle: {
           //底部背景颜色
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
                 offset: 0,
-                color: 'red'
+                color: 'red',
               },
               {
                 offset: 1,
-                color: 'blue'
-              }],
-              global:false
-            }
+                color: 'blue',
+              },
+            ],
+            global: false,
+          },
         },
         //柱条的样式
         itemStyle: {
           //柱条的圆角
           borderRadius: [5, 5, 0, 0],
-          color:''
-        }
+          color: '',
+        },
       },
       {
-        type:'line',
+        type: 'line',
         data: [10, 20, 30, 40, 50, 60],
-        smooth:true
-      }
+        smooth: true,
+      },
     ],
     tooltip: {
-      backgroundColor: 'rgba(50,50,50,0.7)'
-    }
+      backgroundColor: 'rgba(50,50,50,0.7)',
+    },
   })
 })
 </script>

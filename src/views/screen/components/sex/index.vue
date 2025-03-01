@@ -3,14 +3,14 @@
     <div class="title">
       <p>男女比例</p>
       <p class="bg"></p>
-      <img src="../../images/dataScreen-title.png" alt="">
+      <img src="../../images/dataScreen-title.png" alt="" />
     </div>
     <div class="sex">
       <div class="man">
-        <img src="../../images/man.png" alt="">
+        <img src="../../images/man.png" alt="" />
       </div>
       <div class="woman">
-        <img src="../../images/woman.png" alt="">
+        <img src="../../images/woman.png" alt="" />
       </div>
     </div>
     <div class="rate">
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { ref,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 let charts = ref()
 onMounted(() => {
   let myCharts = echarts.init(charts.value)
@@ -41,11 +41,11 @@ onMounted(() => {
     xAxis: {
       show: false,
       min: 0,
-      max:100
+      max: 100,
     },
     yAxis: {
       show: false,
-      type:'category'
+      type: 'category',
     },
     series: [
       {
@@ -56,7 +56,7 @@ onMounted(() => {
         itemStyle: {
           color: 'blue',
           borderRadius: 20,
-        }
+        },
       },
       // 再来一个柱状图
       {
@@ -68,15 +68,15 @@ onMounted(() => {
         itemStyle: {
           color: 'pink',
           borderRadius: 20,
-        }
-      }
+        },
+      },
     ],
     grid: {
       left: 0,
       right: 0,
       top: 0,
-      bottom:0
-    }
+      bottom: 0,
+    },
   })
 })
 </script>
@@ -123,14 +123,14 @@ onMounted(() => {
     }
   }
 
-  .rate{
-    display:flex;
+  .rate {
+    display: flex;
     justify-content: space-around;
-    color:white;
+    color: white;
   }
 
-  .charts{
-    height:100px;
+  .charts {
+    height: 100px;
   }
 }
 </style>

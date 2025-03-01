@@ -1,8 +1,12 @@
 <template>
-  <template v-for="(item) in menuList" :key="item.path">
+  <template v-for="item in menuList" :key="item.path">
     <!-- 没有children -->
     <template v-if="!item.children">
-      <el-menu-item v-if="!item.meta.hidden" :index="item.path" @click="goRoute">
+      <el-menu-item
+        v-if="!item.meta.hidden"
+        :index="item.path"
+        @click="goRoute"
+      >
         <el-icon>
           <component :is="item.meta.icon"></component>
         </el-icon>
@@ -13,7 +17,11 @@
     </template>
     <!-- 有children但children.length === 1 -->
     <template v-if="item.children && item.children.length == 1">
-      <el-menu-item v-if="!item.meta.hidden" :index="item.children[0].path" @click="goRoute">
+      <el-menu-item
+        v-if="!item.meta.hidden"
+        :index="item.children[0].path"
+        @click="goRoute"
+      >
         <el-icon>
           <component :is="item.children[0].meta.icon"></component>
         </el-icon>
@@ -43,7 +51,7 @@ const $router = useRouter()
 
 //点击菜单的回调
 const goRoute = (vc: any) => {
-  console.log(vc,'vc')
+  console.log(vc, 'vc')
   $router.push(vc.index)
 }
 //获取父组件传递过来的全部路由数组
@@ -52,9 +60,7 @@ defineProps(['menuList'])
 
 <script lang="ts">
 export default {
-  name:'Menu'
+  name: 'Menu',
 }
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

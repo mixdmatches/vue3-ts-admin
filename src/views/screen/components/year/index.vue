@@ -2,7 +2,7 @@
   <div class="box7">
     <div class="title">
       <p>年度游客量对比</p>
-      <img src="../../images/dataScreen-title.png" alt="">
+      <img src="../../images/dataScreen-title.png" alt="" />
     </div>
     <div class="charts" ref="charts"></div>
   </div>
@@ -17,18 +17,18 @@ onMounted(() => {
   myCharts.setOption({
     title: {
       text: '散点图',
-      left:'40%',
+      left: '40%',
       textStyle: {
         color: 'white',
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     },
     xAxis: {
       type: 'category',
     },
     yAxis: {
       type: '',
-      show:false
+      show: false,
     },
     grid: {
       left: 10,
@@ -44,10 +44,9 @@ onMounted(() => {
       label: {
         show: true,
         position: 'top',
-        color:'yellowgreen'
-      }
-    }
-    
+        color: 'yellowgreen',
+      },
+    },
   })
 })
 </script>
@@ -58,9 +57,8 @@ onMounted(() => {
   height: 100%;
   background: url(../../images/dataScreen-main-cb.png) no-repeat;
   background-size: 100% 100%;
-  margin:10px 0;
+  margin: 10px 0;
   .title {
-
     p {
       color: white;
       font-size: 16px;

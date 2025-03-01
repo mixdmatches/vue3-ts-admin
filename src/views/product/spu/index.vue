@@ -103,111 +103,111 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeUnmount } from "vue";
-import { ElMessage } from "element-plus";
+import { ref, watch, onBeforeUnmount } from 'vue'
+import { ElMessage } from 'element-plus'
 import type {
   HasSpuResponseData,
   Records,
   SpuData,
   SkuInfoData,
   SkuData,
-} from "@/api/product/spu/type";
-import { reqHasSpu, reqSkuInfo, reqDeleteSpu } from "@/api/product/spu";
-import SpuForm from "./SpuForm.vue";
-import SkuForm from "./SkuForm.vue";
-import useCategoryStore from "@/store/modules/category";
-const categoryStore = useCategoryStore();
-let sence = ref<number>(0); //0:显示已有SPU--- 1:添加或修改已有SPU---2:添加SKU结构
-let pageNo = ref<number>(1);
-let limit = ref<number>(3);
-let total = ref<number>();
+} from '@/api/product/spu/type'
+import { reqHasSpu, reqSkuInfo, reqDeleteSpu } from '@/api/product/spu'
+import SpuForm from './SpuForm.vue'
+import SkuForm from './SkuForm.vue'
+import useCategoryStore from '@/store/modules/category'
+const categoryStore = useCategoryStore()
+let sence = ref<number>(0) //0:显示已有SPU--- 1:添加或修改已有SPU---2:添加SKU结构
+let pageNo = ref<number>(1)
+let limit = ref<number>(3)
+let total = ref<number>()
 //存储已有的SPU数据
-let records = ref<Records>([]);
+let records = ref<Records>([])
 //获取spu实例
-const spuRef = ref<any>();
+const spuRef = ref<any>()
 // 获取sku实例
-const skuRef = ref<any>();
+const skuRef = ref<any>()
 // 存储全部SKU数据
-let skuArr = ref<SkuData[]>([]);
-let show = ref(false);
+let skuArr = ref<SkuData[]>([])
+let show = ref(false)
 //监听三级分类id的变化，一发生变化就发送请求
 watch(
   () => categoryStore.c3Id,
   () => {
     //务必保证有三级分类id
-    if (!categoryStore.c3Id) return;
-    getHasSpu();
-  }
-);
+    if (!categoryStore.c3Id) return
+    getHasSpu()
+  },
+)
 //发送请求
 const getHasSpu = async () => {
   const res: HasSpuResponseData = await reqHasSpu(
     pageNo.value,
     limit.value,
-    categoryStore.c3Id
-  );
-  console.log(res, "12");
+    categoryStore.c3Id,
+  )
+  console.log(res, '12')
   if (res.code === 200) {
-    records.value = res.data.records;
-    total.value = res.data.total;
+    records.value = res.data.records
+    total.value = res.data.total
   }
-};
+}
 // 点击添加SPU按钮
 const addSpu = () => {
   //切换场景1：添加与修改已有SPU结构->spuform
-  sence.value = 2;
+  sence.value = 2
   //添加添加spu按钮，调用子组件方法
-  spuRef.value.initAddSpu(categoryStore.c3Id);
-};
+  spuRef.value.initAddSpu(categoryStore.c3Id)
+}
 //子组件SpuForm绑定的自定义事件：目前是让子组件通知父组件切换场景为0
 const changeScene = (num: number) => {
   //子组件Spuform点击取消变为场景0：展示已有的SPU
-  sence.value = num;
+  sence.value = num
   //再次获取全部已有的SPU
-  getHasSpu();
-};
+  getHasSpu()
+}
 //修改已有SPU按钮回调
 const updateSpu = (row: SpuData) => {
-  sence.value = 1;
-  spuRef.value.initHasSpuData(row);
-};
+  sence.value = 1
+  spuRef.value.initHasSpuData(row)
+}
 
 // 添加SKU按钮回调
 const addSku = (row: SpuData) => {
-  sence.value = 2;
+  sence.value = 2
   // 调用子组件方法初始化添加sku
   //row里面自带c3Id和spuId和id
-  skuRef.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, row);
-};
+  skuRef.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, row)
+}
 
 //查看SKU列表的数据
 const findSku = async (row: SpuData) => {
-  const res: SkuInfoData = await reqSkuInfo(row.id as number);
-  console.log(res, "resfindsku");
+  const res: SkuInfoData = await reqSkuInfo(row.id as number)
+  console.log(res, 'resfindsku')
   if (res.code === 200) {
-    skuArr.value = res.data;
-    console.log(show.value);
+    skuArr.value = res.data
+    console.log(show.value)
 
-    show.value = true;
-    console.log(show.value);
+    show.value = true
+    console.log(show.value)
   }
-};
+}
 
 // 删除SPU按钮回调
 const deleteSpu = async (row: SpuData) => {
-  const res = await reqDeleteSpu(row.id as number);
+  const res = await reqDeleteSpu(row.id as number)
   if (res.code === 200) {
-    ElMessage({ type: "success", message: "删除成功" });
-    await getHasSpu();
+    ElMessage({ type: 'success', message: '删除成功' })
+    await getHasSpu()
   } else {
-    ElMessage({ type: "error", message: "删除失败" });
+    ElMessage({ type: 'error', message: '删除失败' })
   }
-};
+}
 
 // 路由组件销毁前
 onBeforeUnmount(() => {
   categoryStore.$reset()
-});
+})
 </script>
 
 <style scoped></style>

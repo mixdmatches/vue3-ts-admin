@@ -1,11 +1,10 @@
-
 *,
 *:after,
 *:before {
   box-sizing: border-box;
   outline: none;
-  margin:0px;
-  padding:0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 html,
@@ -145,11 +144,11 @@ sup {
 }
 
 sup {
-  top: -.5em;
+  top: -0.5em;
 }
 
 sub {
-  bottom: -.25em;
+  bottom: -0.25em;
 }
 
 table {
@@ -167,7 +166,7 @@ button {
 }
 
 select {
-  text-indent: .01px;
+  text-indent: 0.01px;
   text-overflow: '';
 
   border: 0;

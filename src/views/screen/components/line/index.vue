@@ -2,11 +2,9 @@
   <div class="box5">
     <div class="title">
       <p>未来7天游客量趋势图</p>
-      <img src="../../images/dataScreen-title.png" alt="">
+      <img src="../../images/dataScreen-title.png" alt="" />
     </div>
-    <div class="charts" ref="line">
-
-    </div>
+    <div class="charts" ref="line"></div>
   </div>
 </template>
 
@@ -19,7 +17,7 @@ onMounted(() => {
   //设置配置项
   myChart.setOption({
     title: {
-      text: '访问量'
+      text: '访问量',
     },
     xAxis: {
       type: 'category',
@@ -27,21 +25,21 @@ onMounted(() => {
       boundaryGap: false,
       //分割线不要
       splitLine: {
-        show: false
+        show: false,
       },
-      data:['周一','周二','周三','周四','周五','周六','周日']
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
     },
     yAxis: {
       splitLine: {
-        show: false
+        show: false,
       },
       //轴线
       axisLine: {
-        show: true
+        show: true,
       },
       //刻度线
       axisTick: {
-        show: true
+        show: true,
       },
     },
     grid: {
@@ -52,8 +50,8 @@ onMounted(() => {
     },
     series: [
       {
-      type: 'line',
-        data: [0,120,1240,55,2299,321,890,1200],
+        type: 'line',
+        data: [0, 120, 1240, 55, 2299, 321, 890, 1200],
         // 平滑曲线
         smooth: true,
         //区域填充样式
@@ -62,20 +60,22 @@ onMounted(() => {
             type: 'linear',
             x: 0,
             y: 0,
-            x2:0,
-            y2:1,
-            colorStops: [{
-              offset:0,
-              color:'red'
-            },
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'red',
+              },
               {
                 offset: 1,
-              color:'blue'
-            }]
-          }
-        }
-      }
-    ]
+                color: 'blue',
+              },
+            ],
+          },
+        },
+      },
+    ],
   })
 })
 </script>
