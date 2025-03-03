@@ -161,7 +161,6 @@ onMounted(() => {
 })
 //下拉菜单发生变化时触发
 const sizeChange = () => {
-  console.log('下拉菜单发生变化')
   getHasTrademark()
 }
 //--------------------------对话框数据和逻辑
@@ -176,7 +175,6 @@ let trademarkForm = reactive<TradeMark>({
 let formRef = ref()
 //品牌自定义校验规则
 const validatorTmName = (rules: any, value: any, callback: any) => {
-  console.log(rules, value, callback)
   //自定义校验
   if (value.trim().length >= 2) {
     callback()
@@ -186,7 +184,6 @@ const validatorTmName = (rules: any, value: any, callback: any) => {
 }
 // 图片上传的校验规则
 const validatorLogoUrl = (rules: any, value: any, callback: any) => {
-  console.log(rules, value, callback)
   //如果图片上传
   if (value) {
     callback()
@@ -243,12 +240,10 @@ const confirm = async () => {
   //发起请求之前做一个表单校验
   await formRef.value.validate()
   const res = await reqAddOrUpdateTrademark(trademarkForm)
-  console.log(res)
   if (res.code === 200) {
     ElMessage.success(trademarkForm.id ? '修改品牌成功' : '添加品牌成功')
     if (!trademarkForm.id) {
       pageNo.value = Math.ceil((total.value + 1) / limit.value)
-      console.log(pageNo.value, 'pageNo')
     }
     getHasTrademark()
   } else {
@@ -258,7 +253,6 @@ const confirm = async () => {
 }
 //上传文件组件函数钩子
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  console.log(rawFile)
   loading.value = true
   if (
     rawFile.type == 'image/png' ||
@@ -284,8 +278,6 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   uploadFile,
 ) => {
   // response:即为当前这次上传图片post请求服务器返回的数据
-  console.log(response, 'res')
-  console.log(uploadFile, 'fil')
   trademarkForm.logoUrl = response.data
   formRef.value.clearValidate('logoUrl')
   loading.value = false

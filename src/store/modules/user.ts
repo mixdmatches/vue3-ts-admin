@@ -62,7 +62,6 @@ const useUserStore = defineStore('User', {
     //获取用户信息
     async getUserInfo() {
       const res: userInfoResponseData = await reqUserInfo()
-      console.log(res.data.routes, 'userres')
       if (res.code === 200) {
         this.username = res.data.name
         this.avatar = res.data.avatar

@@ -94,7 +94,6 @@ const updateRefsh = () => {
 };
 //全屏按钮点击回调
 const fullScreen = () => {
-  console.log(document.fullscreenElement);
   let full = document.fullscreenElement;
   if (!full) {
     //利用文档的根节点的方法requestFullscreen实现全屏

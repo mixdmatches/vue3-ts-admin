@@ -193,7 +193,6 @@ let saleAttrIdAndValueName = ref<string>('')
 const initHasSpuData = async (spu: SpuData) => {
   //存储已有的SPU对象，将来在模板中展示
   spuParams.value = spu
-  console.log(spu, 'spu')
   //spu即为父组件传递过来的已有的spu对象【不完整
   //先获取全部品牌的数据
   let res: AllTradeMark = await reqAllTradeMark()
@@ -221,7 +220,6 @@ const initHasSpuData = async (spu: SpuData) => {
 
 //照片墙点击预览按钮的触发钩子
 const handlePictureCardPreview = (file: any) => {
-  console.log(file)
   dialogImageUrl.value = file.url
   //对话框弹出来
   dialogVisible.value = true
@@ -232,7 +230,6 @@ const handleRemove = () => {}
 
 //照片墙上传之前的钩子约束文件大小与类型
 const handlerUpload = (file: any) => {
-  console.log(file)
   if (
     file.type == 'image/png' ||
     file.type == 'image/jpeg' ||

@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="naver" style="margin-bottom: 10px">
+  <el-card shadow="never" style="margin-bottom: 10px">
     <el-form inline>
       <el-form-item label="用户名">
         <el-input v-model="keyWords" placeholder="请你输入用户名"></el-input>
@@ -15,7 +15,7 @@
       </el-form-item>
     </el-form>
   </el-card>
-  <el-card shadow="naver">
+  <el-card shadow="never">
     <el-button type="primary" @click="addUser">添加用户</el-button>
     <el-button
       type="primary"
@@ -211,7 +211,6 @@ const getHasUer = async () => {
     limit.value,
     keyWords.value,
   )
-  console.log(res, 'user')
   userList.value = res.data.records
   total.value = res.data.total
 }
@@ -332,7 +331,6 @@ const cancel = () => {
 let drawer2 = ref(false)
 // 分配角色按钮回调
 const setRole = async (row: User) => {
-  console.log(row)
   // 存储已有用户信息
   Object.assign(userParams, row)
   const res: AllRoleResponseData = await reqAllRole(userParams.id as number)

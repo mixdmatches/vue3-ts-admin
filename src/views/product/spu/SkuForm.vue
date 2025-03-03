@@ -164,8 +164,6 @@ const save = async () => {
 }
 // 设置默认图片
 const handler = (row: any) => {
-  // 选中的行
-  console.log(row)
   // 取消所有选中
   imgArr.value.forEach((item: any) => {
     tableRef.value.toggleRowSelection(item, false)

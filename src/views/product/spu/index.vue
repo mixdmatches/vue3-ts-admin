@@ -146,7 +146,6 @@ const getHasSpu = async () => {
     limit.value,
     categoryStore.c3Id,
   )
-  console.log(res, '12')
   if (res.code === 200) {
     records.value = res.data.records
     total.value = res.data.total
@@ -183,13 +182,9 @@ const addSku = (row: SpuData) => {
 //查看SKU列表的数据
 const findSku = async (row: SpuData) => {
   const res: SkuInfoData = await reqSkuInfo(row.id as number)
-  console.log(res, 'resfindsku')
   if (res.code === 200) {
     skuArr.value = res.data
-    console.log(show.value)
-
     show.value = true
-    console.log(show.value)
   }
 }
 

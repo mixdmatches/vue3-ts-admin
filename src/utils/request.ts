@@ -13,7 +13,7 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
   //获取用户相关的小仓库：获取内部token登陆成功后携带给服务器
   const userStore = useUserStore()
-  console.log(userStore.token)
+
   if (userStore.token) {
     config.headers.token = userStore.token
   }
@@ -34,9 +34,9 @@ request.interceptors.response.use(
     //定义一个变量
     let message = ''
     //http状态码
-    console.log(errer.response)
+    console.log(errer.response, 'response')
 
-    const status = errer.response.status
+    const status = errer.response.status ? errer.response.status : 0
     switch (status) {
       case 401:
         message = 'TOKEN过期'

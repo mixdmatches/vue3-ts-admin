@@ -156,7 +156,6 @@ const rules = {
 //获取已有的所有职位
 const getAllRole = async () => {
   const res = await reqGetRoles(page.value, limit.value, keyWord.value)
-  console.log(res)
   roleList.value = res.data.records
   total.value = res.data.total
 }
@@ -195,7 +194,6 @@ const editRole = (row: RoleData) => {
 const save = async () => {
   await formRef.value.validate()
   const res = await reqAddOrEditRole(role)
-  console.log(res)
   if (res.code === 200) {
     ElMessage.success(role.id ? '修改成功' : '添加成功')
     getAllRole()

@@ -199,9 +199,7 @@ const skuInfo = ref<SkuData>({
 const findSku = async (row: SkuData) => {
   drawer.value = true
   const res: SkuInfoData = await reqSkuInfo(row.id as number)
-  console.log(res, 'info')
   skuInfo.value = res.data
-  console.log(skuInfo.value, 'info')
 }
 // 删除
 const deleteSku = async (skuId: number) => {

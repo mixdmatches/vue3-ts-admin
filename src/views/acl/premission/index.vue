@@ -131,7 +131,6 @@ const handleEdit = (row: premission) => {
 const save = async () => {
   // 发请求
   const res = await reqAddOrUpdateMenu(menuParams.value)
-  console.log(res)
   if (res.code === 200) {
     getHasPermission()
     ElMessage.success(menuParams.value.id ? '更新成功' : '添加成功')

@@ -7,7 +7,6 @@ import Category from './Category/index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const allGloablComponent: any = { SvgIcon, Pagination, Category }
-console.log(allGloablComponent, 'a')
 
 //对外暴露插件对象
 export default {

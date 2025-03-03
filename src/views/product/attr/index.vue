@@ -154,10 +154,8 @@ watch(
 //获取已有属性和属性值方法
 const getAttr = async () => {
   const { c1Id, c2Id, c3Id } = categoryStore
-  console.log(123)
 
   const res: AttrResponseData = await reqAttr(c1Id, c2Id, c3Id)
-  console.log(res, 'res')
   if (res.code === 200) {
     attrArr.value = res.data
   }
@@ -204,7 +202,6 @@ const addAttrValue = () => {
 const save = async () => {
   //发送请求
   const res = await reqAddOrUpdateAttr(attrParams)
-  console.log(res, 'attrres')
   //添加|修改已有属性已经成功
   if (res.code === 200) {
     ElMessage.success(attrParams.id ? '修改成功' : '添加成功')
@@ -249,7 +246,6 @@ const toEdit = (row: AttrValue, $index: number) => {
 //删除某一个属性的方法回调1
 const deleteAttr = async (id: number) => {
   const res: any = await reqDeleteAttr(id)
-  console.log(res)
   if (res.code === 200) {
     ElMessage.success('删除成功')
     getAttr()

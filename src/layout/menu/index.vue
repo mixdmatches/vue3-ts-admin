@@ -51,7 +51,6 @@ const $router = useRouter()
 
 //点击菜单的回调
 const goRoute = (vc: any) => {
-  console.log(vc, 'vc')
   $router.push(vc.index)
 }
 //获取父组件传递过来的全部路由数组

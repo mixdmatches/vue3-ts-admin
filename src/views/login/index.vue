@@ -64,7 +64,6 @@ const login = async () => {
   //保证全部的表单项全部通过校验
   await loginForms.value.validate()
   loading.value = true
-  console.log(loginForm)
   //通知仓库发登录请求
   //请求成功跳转首页
   //请求失败提示错误信息
