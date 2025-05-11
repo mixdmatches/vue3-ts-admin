@@ -19,7 +19,7 @@
           ></el-table-column>
           <el-table-column label="属性名称" prop="attrName"></el-table-column>
           <el-table-column label="属性值名称">
-            <template #="{ row }">
+            <template #default="{ row }">
               <el-tag
                 style="margin: 5px"
                 v-for="item in row.attrValueList"
@@ -29,7 +29,7 @@
             </template>
           </el-table-column>
           <el-table-column label="操作">
-            <template #="{ row }">
+            <template #default="{ row }">
               <el-button
                 type="primary"
                 plain
@@ -83,9 +83,9 @@
             label="序号"
           ></el-table-column>
           <el-table-column label="属性值名称">
-            <template #="{ row, $index }">
+            <template #default="{ row, $index }">
               <el-input
-                :ref="(vc: any) => (inputArr[$index] = vc)"
+                ref="(vc) => { inputArr.value[$index] = vc }"
                 @blur="toLook(row, $index)"
                 v-if="row.flag"
                 v-model="row.valueName"
@@ -95,7 +95,7 @@
             </template>
           </el-table-column>
           <el-table-column label="属性值操作">
-            <template #="{ $index }">
+            <template #default="{ $index }">
               <el-button
                 @click="attrParams.attrValueList.splice($index, 1)"
                 type="warning"
@@ -123,7 +123,7 @@ import { watch, ref, reactive, nextTick, onBeforeUnmount } from 'vue'
 //获取已有属性和属性值接口
 import { reqAttr, reqAddOrUpdateAttr, reqDeleteAttr } from '@/api/product/attr'
 import useCategoryStore from '@/store/modules/category'
-import type { AttrResponseData, Attr, AttrValue } from '@/api/product/attr/type'
+import type { AttrResponseData, Attr, AttrValue } from '@/types/attr'
 import { ElMessage } from 'element-plus'
 const categoryStore = useCategoryStore()
 //input聚焦

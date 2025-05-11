@@ -1,6 +1,6 @@
 //商品分类全局组件的小仓库
 import { defineStore } from 'pinia'
-import type { CategoryResponseData } from '@/api/product/attr/type'
+import type { CategoryResponseData } from '@/types/attr'
 import type { CategoryState } from './types/type'
 import { ElMessage } from 'element-plus'
 //导入api

@@ -18,7 +18,6 @@ let flag = ref(true)
 watch(
   () => layOutSettingStore.refsh,
   () => {
-    console.log('123')
     //点击刷新按钮：路由组件销毁
     flag.value = false
     //销毁后在创建

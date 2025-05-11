@@ -1,185 +1,195 @@
 <template>
-  <el-card shadow="never" style="margin-bottom: 10px">
-    <el-form inline>
-      <el-form-item label="用户名">
-        <el-input v-model="keyWords" placeholder="请你输入用户名"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          type="primary"
-          :disabled="keyWords ? false : true"
-          @click="search"
-          >搜索</el-button
-        >
-        <el-button @click="reset">重置</el-button>
-      </el-form-item>
-    </el-form>
-  </el-card>
-  <el-card shadow="never">
-    <el-button type="primary" @click="addUser">添加用户</el-button>
-    <el-button
-      type="primary"
-      @click="deleteSeletcUsers"
-      :disabled="!selectIds.length ? true : false"
-      >批量删除</el-button
-    >
-    <el-table
-      :data="userList"
-      border
-      style="margin: 10px 0px"
-      @selection-change="selectChange"
-    >
-      <el-table-column type="selection" align="center"></el-table-column>
-      <el-table-column type="index" label="#" align="center"></el-table-column>
-      <el-table-column prop="id" label="ID" align="center"></el-table-column>
-      <el-table-column
-        prop="name"
-        label="用户名字"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="username"
-        label="用户名称"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="roleName"
-        label="用户角色"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="createTime"
-        label="创建时间"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="updateTime"
-        label="更新时间"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column label="操作" align="center" width="340px">
-        <template #="{ row }">
+  <div>
+    <el-card shadow="never" style="margin-bottom: 10px">
+      <el-form inline>
+        <el-form-item label="用户名">
+          <el-input v-model="keyWords" placeholder="请你输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item>
           <el-button
-            icon="User"
-            size="small"
             type="primary"
-            @click="setRole(row)"
-            >分配角色</el-button
+            :disabled="keyWords ? false : true"
+            @click="search"
+            >搜索</el-button
           >
-          <el-button
-            icon="Edit"
-            size="small"
-            type="primary"
-            @click="updataUser(row)"
-            >编辑</el-button
-          >
-          <el-popconfirm
-            title="确定删除吗？"
-            width="25px"
-            @confirm="deleteUser(row.id)"
-          >
-            <template #reference>
-              <el-button icon="Delete" size="small" type="primary"
-                >删除</el-button
-              >
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- <el-pagination layout="prev, pager, next" :total="50" /> -->
-    <el-pagination
-      background
-      layout="prev, pager, next, -> ,total, sizes, jumper"
-      :total="total"
-      :page-sizes="[3, 5, 7]"
-      v-model:current-page="page"
-      v-model:page-size="limit"
-      @current-change="getHasUer"
-      @size-change="getHasUer"
-    />
-    <!-- 添加更新 -->
-    <el-drawer v-model="drawer">
-      <template #header>
-        <h4>{{ userParams.id ? '修改用户' : '添加用户' }}</h4>
-      </template>
-      <template #default>
-        <el-form ref="formRef" :model="userParams" :rules="rules">
-          <el-form-item label="用户姓名" prop="username">
-            <el-input
-              v-model="userParams.username"
-              placeholder="请输入用户姓名"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="用户名称" prop="name">
-            <el-input
-              v-model="userParams.name"
-              placeholder="请输入用户名称"
-            ></el-input>
-          </el-form-item>
-          <el-form-item v-if="!userParams.id" label="用户密码" prop="password">
-            <el-input
-              v-model="userParams.password"
-              placeholder="请输入用户名称"
-            ></el-input>
-          </el-form-item>
-        </el-form>
-      </template>
-      <template #footer>
-        <div style="flex: auto">
-          <el-button @click="cancel">取消</el-button>
-          <el-button type="primary" @click="save">确定</el-button>
-        </div>
-      </template>
-    </el-drawer>
-    <!-- 用户某一个已有帐号进行已有的分配 -->
-    <el-drawer v-model="drawer2">
-      <template #header>
-        <h4>分配角色（职位）</h4>
-      </template>
-      <template #default>
-        <el-form>
-          <el-form-item label="用户姓名">
-            <el-input v-model="userParams.name" disabled></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-form-item label="职位列表">
-              <el-checkbox
-                v-model="checkAll"
-                :indeterminate="isIndeterminate"
-                @click="handleCheckAllChange"
-                >全选</el-checkbox
-              >
-              <el-checkbox-group
-                v-model="userRole"
-                @change="handleCheckedCitiesChange"
-              >
-                <el-checkbox
-                  v-for="role in allRole"
-                  :key="role"
-                  :label="role"
-                  :value="role"
+          <el-button @click="reset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+    <el-card shadow="never">
+      <el-button type="primary" @click="addUser">添加用户</el-button>
+      <el-button
+        type="primary"
+        @click="deleteSeletcUsers"
+        :disabled="!selectIds.length ? true : false"
+        >批量删除</el-button
+      >
+      <el-table
+        :data="userList"
+        border
+        style="margin: 10px 0px"
+        @selection-change="selectChange"
+      >
+        <el-table-column type="selection" align="center"></el-table-column>
+        <el-table-column
+          type="index"
+          label="#"
+          align="center"
+        ></el-table-column>
+        <el-table-column prop="id" label="ID" align="center"></el-table-column>
+        <el-table-column
+          prop="name"
+          label="用户名字"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="username"
+          label="用户名称"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="roleName"
+          label="用户角色"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="createTime"
+          label="创建时间"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="updateTime"
+          label="更新时间"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column label="操作" align="center" width="340px">
+          <template #default="{ row }">
+            <el-button
+              icon="User"
+              size="small"
+              type="primary"
+              @click="setRole(row)"
+              >分配角色</el-button
+            >
+            <el-button
+              icon="Edit"
+              size="small"
+              type="primary"
+              @click="updataUser(row)"
+              >编辑</el-button
+            >
+            <el-popconfirm
+              title="确定删除吗？"
+              width="25px"
+              @confirm="deleteUser(row.id)"
+            >
+              <template #reference>
+                <el-button icon="Delete" size="small" type="primary"
+                  >删除</el-button
                 >
-                  {{ role.roleName }}
-                </el-checkbox>
-              </el-checkbox-group>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- <el-pagination layout="prev, pager, next" :total="50" /> -->
+      <el-pagination
+        background
+        layout="prev, pager, next, -> ,total, sizes, jumper"
+        :total="total"
+        :page-sizes="[3, 5, 7]"
+        v-model:current-page="page"
+        v-model:page-size="limit"
+        @current-change="getHasUer"
+        @size-change="getHasUer"
+      />
+      <!-- 添加更新 -->
+      <el-drawer v-model="drawer">
+        <template #header>
+          <h4>{{ userParams.id ? '修改用户' : '添加用户' }}</h4>
+        </template>
+        <template #default>
+          <el-form ref="formRef" :model="userParams" :rules="rules">
+            <el-form-item label="用户姓名" prop="username">
+              <el-input
+                v-model="userParams.username"
+                placeholder="请输入用户姓名"
+              ></el-input>
             </el-form-item>
-          </el-form-item>
-        </el-form>
-      </template>
-      <template #footer>
-        <div style="flex: auto">
-          <el-button @click="drawer2 = false">取消</el-button>
-          <el-button type="primary" @click="confirmClick">确定</el-button>
-        </div>
-      </template>
-    </el-drawer>
-  </el-card>
+            <el-form-item label="用户名称" prop="name">
+              <el-input
+                v-model="userParams.name"
+                placeholder="请输入用户名称"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              v-if="!userParams.id"
+              label="用户密码"
+              prop="password"
+            >
+              <el-input
+                v-model="userParams.password"
+                placeholder="请输入用户名称"
+              ></el-input>
+            </el-form-item>
+          </el-form>
+        </template>
+        <template #footer>
+          <div style="flex: auto">
+            <el-button @click="cancel">取消</el-button>
+            <el-button type="primary" @click="save">确定</el-button>
+          </div>
+        </template>
+      </el-drawer>
+      <!-- 用户某一个已有帐号进行已有的分配 -->
+      <el-drawer v-model="drawer2">
+        <template #header>
+          <h4>分配角色（职位）</h4>
+        </template>
+        <template #default>
+          <el-form>
+            <el-form-item label="用户姓名">
+              <el-input v-model="userParams.name" disabled></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-form-item label="职位列表">
+                <el-checkbox
+                  v-model="checkAll"
+                  :indeterminate="isIndeterminate"
+                  @click="handleCheckAllChange"
+                  >全选</el-checkbox
+                >
+                <el-checkbox-group
+                  v-model="userRole"
+                  @change="handleCheckedCitiesChange"
+                >
+                  <el-checkbox
+                    v-for="role in allRole"
+                    :key="role"
+                    :label="role"
+                    :value="role"
+                  >
+                    {{ role.roleName }}
+                  </el-checkbox>
+                </el-checkbox-group>
+              </el-form-item>
+            </el-form-item>
+          </el-form>
+        </template>
+        <template #footer>
+          <div style="flex: auto">
+            <el-button @click="drawer2 = false">取消</el-button>
+            <el-button type="primary" @click="confirmClick">确定</el-button>
+          </div>
+        </template>
+      </el-drawer>
+    </el-card>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -193,14 +203,14 @@ import {
   reqSetUserRole,
   reqDeleteUser,
   reqDeleteUserBatch,
-} from '@/api/acl/user/index'
+} from '@/api/acl/user'
 import type {
   User,
   UserResponseData,
   RoleData,
   AllRoleResponseData,
   SetRoleData,
-} from '@/api/acl/user/type'
+} from '@/types/user'
 let page = ref(1)
 let limit = ref(3)
 let total = ref(0)
@@ -230,7 +240,11 @@ const userParams = reactive<User>({
 })
 
 // 自定义校验规则对象
-const ValidatorUsername = (_roles: any, value: any, callBack: any) => {
+const ValidatorUsername = (
+  _rules: Record<string, unknown>,
+  value: string,
+  callBack: (error?: Error) => void,
+) => {
   if (value.trim().length >= 5) {
     callBack()
   } else {
@@ -238,7 +252,12 @@ const ValidatorUsername = (_roles: any, value: any, callBack: any) => {
   }
 }
 
-const ValidatorName = (_rules: any, value: any, callBack: any) => {
+// 明确参数类型，避免使用 any
+const ValidatorName = (
+  _rules: Record<string, unknown>,
+  value: string,
+  callBack: (error?: Error) => void,
+) => {
   if (value.trim().length >= 5) {
     callBack()
   } else {
@@ -246,7 +265,11 @@ const ValidatorName = (_rules: any, value: any, callBack: any) => {
   }
 }
 
-const ValidatorPassword = (_rules: any, value: any, callBack: any) => {
+const ValidatorPassword = (
+  _rules: Record<string, unknown>,
+  value: string,
+  callBack: (error?: Error) => void,
+) => {
   if (value.trim().length >= 6) {
     callBack()
   } else {
@@ -288,7 +311,6 @@ const addUser = () => {
     formRef.value.clearValidate('name')
     formRef.value.clearValidate('password')
   })
-  6
   drawer.value = true
   Object.assign(userParams, {
     name: '',
@@ -354,11 +376,14 @@ const handleCheckAllChange = (val: boolean) => {
   userRole.value = val ? allRole.value : []
   isIndeterminate.value = false
 }
-
-const handleCheckedCitiesChange = (value: string[]) => {
+const handleCheckedCitiesChange = (value: RoleData[]) => {
+  // const checkedCount = value.length
+  // checkAll.value = checkedCount === allRole.value.length
+  // isIndeterminate.value = !(checkedCount === allRole.value.length)
   const checkedCount = value.length
-  checkAll.value = checkedCount === allRole.value.length
-  isIndeterminate.value = !(checkedCount === allRole.value.length)
+  const allCount = allRole.value.length
+  checkAll.value = checkedCount === allCount
+  isIndeterminate.value = checkedCount > 0 && checkedCount < allCount
 }
 
 const confirmClick = async () => {
@@ -390,7 +415,7 @@ const deleteUser = async (id: number) => {
 //准备一个数组存储批量删除的id
 let selectIds = ref<User[]>([])
 // 批量删除按钮回调
-const selectChange = (newSelection: any) => {
+const selectChange = (newSelection: User[]) => {
   selectIds.value = newSelection
 }
 

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { AllRoleResponseData, MenuResponseData } from './type'
+import type { AllRoleResponseData, MenuResponseData } from '@/types/role'
 enum API {
   //获取所有职位
   GETROLES_URL = '/admin/acl/role/',

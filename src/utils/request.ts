@@ -1,4 +1,3 @@
-//进行
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 //引入用户相关的仓库
@@ -13,12 +12,9 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
   //获取用户相关的小仓库：获取内部token登陆成功后携带给服务器
   const userStore = useUserStore()
-
   if (userStore.token) {
     config.headers.token = userStore.token
   }
-  //config配置对象，headers属性请求头，经常给服务器携带公共参数
-  //返回配置对象
   return config
 })
 
@@ -34,8 +30,6 @@ request.interceptors.response.use(
     //定义一个变量
     let message = ''
     //http状态码
-    console.log(errer.response, 'response')
-
     const status = errer.response.status ? errer.response.status : 0
     switch (status) {
       case 401:

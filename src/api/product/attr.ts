@@ -1,6 +1,6 @@
 //这里书写属性相关的API文件
 import request from '@/utils/request'
-import type { CategoryResponseData, AttrResponseData, Attr } from './type'
+import type { CategoryResponseData, AttrResponseData, Attr } from '@/types/attr'
 //属性管理模块接口地址
 enum API {
   //获取一级分类接口地址

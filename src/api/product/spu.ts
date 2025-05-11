@@ -8,7 +8,7 @@ import type {
   SpuData,
   SkuData,
   SkuInfoData,
-} from './type'
+} from '@/types/spu'
 enum API {
   //获取已有的SPU接口
   HASSPU_URL = '/admin/product/',

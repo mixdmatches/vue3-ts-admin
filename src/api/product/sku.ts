@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { SkuResponseData, SkuInfoData } from './type'
+import type { SkuResponseData, SkuInfoData } from '@/types/sku'
 enum API {
   SKU_URL = '/admin/product/list/',
   // 上架

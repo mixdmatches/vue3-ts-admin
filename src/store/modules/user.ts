@@ -6,9 +6,9 @@ import type {
   loginFormData,
   loginResponseData,
   userInfoResponseData,
-} from '@/api/user/type'
+} from '@/types/my'
 import type { UserState } from './types/type'
-import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
+import { reqLogin, reqUserInfo, reqLogout } from '@/api/user/user'
 //引入操作本地存储持久化数据
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 //引入路由(常量路由)

@@ -4,7 +4,7 @@ import {
   User,
   AllRoleResponseData,
   SetRoleData,
-} from './type'
+} from '@/types/user'
 enum API {
   // 获取管理用户列表
   GETUSERLIST = '/admin/acl/user/',

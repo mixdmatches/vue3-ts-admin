@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="naver">
+  <el-card shadow="never">
     <!-- 添加按钮 -->
     <el-button type="primary" icon="Plus" @click="addTrademark"
       >添加品牌</el-button
@@ -15,17 +15,17 @@
       <!-- table-column:默认展示数据用div -->
       <!-- 如果div不满足需求，用插槽 -->
       <el-table-column prop="tmName" label="品牌名称">
-        <template #="{ row }">
+        <template #default="{ row }">
           <pre>{{ row.tmName }}</pre>
         </template>
       </el-table-column>
       <el-table-column label="品牌LOGO">
-        <template #="{ row }">
+        <template #default="{ row }">
           <img :src="row.logoUrl" alt="图片消失了ʕ  •ᴥ•ʔ……" height="35px" />
         </template>
       </el-table-column>
       <el-table-column label="品牌操作">
-        <template #="{ row }">
+        <template #default="{ row }">
           <el-button
             type="primary"
             size="small"
@@ -50,11 +50,11 @@
     <el-pagination
       @current-change="getHasTrademark"
       @size-change="sizeChange"
-      pager-count="9"
+      :pager-count="9"
       v-model:current-page="pageNo"
       v-model:page-size="limit"
       :page-sizes="[3, 5, 7, 9]"
-      background="true"
+      :background="true"
       layout="prev, pager, next, jumper,->,total, sizes, "
       :total="total"
     />
@@ -129,7 +129,7 @@ import type {
   Records,
   TradeMarkResponseData,
   TradeMark,
-} from '@/api/product/trademark/type'
+} from '@/types/trademark'
 let loading = ref(false)
 //------------------------------------分页数据和逻辑
 //总条数
@@ -174,7 +174,11 @@ let trademarkForm = reactive<TradeMark>({
 //获取el-form 组件实例
 let formRef = ref()
 //品牌自定义校验规则
-const validatorTmName = (rules: any, value: any, callback: any) => {
+const validatorTmName = (
+  _rules: Record<string, unknown>,
+  value: string,
+  callback: ValidationCallback,
+) => {
   //自定义校验
   if (value.trim().length >= 2) {
     callback()
@@ -183,7 +187,13 @@ const validatorTmName = (rules: any, value: any, callback: any) => {
   }
 }
 // 图片上传的校验规则
-const validatorLogoUrl = (rules: any, value: any, callback: any) => {
+type ValidationCallback = (error?: Error) => void
+
+const validatorLogoUrl = (
+  _rules: Record<string, unknown>,
+  value: string,
+  callback: ValidationCallback,
+) => {
   //如果图片上传
   if (value) {
     callback()
@@ -273,10 +283,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   }
 }
 //图片上传成功的钩子
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-  uploadFile,
-) => {
+const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
   // response:即为当前这次上传图片post请求服务器返回的数据
   trademarkForm.logoUrl = response.data
   formRef.value.clearValidate('logoUrl')

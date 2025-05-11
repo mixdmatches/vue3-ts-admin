@@ -1,5 +1,5 @@
 import { ResponeseData } from '../trademark/type'
-
+import { ResponseType } from 'axios'
 export interface ResponseData {
   code: number
   message: string
@@ -52,6 +52,7 @@ export interface SpuImg {
   spuId?: number
   name?: string
   url?: string
+  response?: ResponseType
 }
 //已有的SPU的照片墙的数据类型
 export interface SpuHasImg extends ResponseData {

@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="naver">
+  <el-card shadow="never">
     <el-table border :data="skuList" style="margin: 10px 0">
       <el-table-column
         label="序号"
@@ -22,7 +22,7 @@
         width="150px"
       ></el-table-column>
       <el-table-column label="图片" width="150px">
-        <template #="{ row }">
+        <template #default="{ row }">
           <img style="height: 50px" :src="row.skuDefaultImg" alt="" />
         </template>
       </el-table-column>
@@ -37,7 +37,7 @@
         width="150px"
       ></el-table-column>
       <el-table-column label="操作" width="350px" fixed="right">
-        <template #="{ row }">
+        <template #default="{ row }">
           <el-button
             size="small"
             :icon="row.isSale == 1 ? 'Bottom' : 'Top'"
@@ -142,13 +142,9 @@ import {
   reqCanselSku,
   reqSkuInfo,
   reqDeleteSku,
-} from '@/api/product/sku/index'
+} from '@/api/product/sku'
 import { ref, onMounted } from 'vue'
-import type {
-  SkuResponseData,
-  SkuData,
-  SkuInfoData,
-} from '@/api/product/sku/type'
+import type { SkuResponseData, SkuData, SkuInfoData } from '@/types/sku'
 // 分页器当前页码
 let pageNo = ref(1)
 let pageSize = ref(10)

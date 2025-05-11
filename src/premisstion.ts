@@ -13,8 +13,8 @@ router.beforeEach(async (to, _from, next) => {
   //next:放行函数
   // nprogress.start()
   //获取token
-  let token = userStore.token
-  let username = userStore.username
+  const token = userStore.token
+  const username = userStore.username
   if (token) {
     //登陆成功，不能访问login，指向首页
     if (to.path === '/login') {
@@ -35,7 +35,7 @@ router.beforeEach(async (to, _from, next) => {
           // next()
           // 解决刷新时，动态路由没有显示的问题
           next({ ...to })
-        } catch (error) {
+        } catch (_error) {
           //token过期：获取不到用户信息
           //用户手动修改本地存储token
           //退出登录->用户相关的数据清空

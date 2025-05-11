@@ -1,72 +1,74 @@
 <template>
-  <el-table
-    :data="permissionList"
-    style="width: 100%; margin-bottom: 20px"
-    row-key="id"
-    border
-    default-expand-all
-  >
-    <el-table-column label="名称" prop="name" />
-    <el-table-column label="权限值" prop="code" />
-    <el-table-column label="修改时间" prop="updateTime" />
-    <el-table-column label="操作">
-      <template #="{ row }">
-        <el-button
-          type="primary"
-          size="small"
-          :disabled="row.level === 4 ? true : false"
-          @click="handleAdd(row)"
-          >添加{{ row.level === 3 ? '功能' : '菜单' }}</el-button
-        >
-        <el-button
-          type="primary"
-          size="small"
-          :disabled="row.level === 1 ? true : false"
-          @click="handleEdit(row)"
-          >编辑</el-button
-        >
-        <el-popconfirm
-          @confirm="handleDelete(row.id)"
-          :title="`确认删除${row.name}吗？`"
-        >
-          <template #reference>
-            <el-button
-              type="primary"
-              size="small"
-              :disabled="row.level === 1 ? true : false"
-              >删除</el-button
-            >
-          </template>
-        </el-popconfirm>
+  <div>
+    <el-table
+      :data="permissionList"
+      style="width: 100%; margin-bottom: 20px"
+      row-key="id"
+      border
+      default-expand-all
+    >
+      <el-table-column label="名称" prop="name" />
+      <el-table-column label="权限值" prop="code" />
+      <el-table-column label="修改时间" prop="updateTime" />
+      <el-table-column label="操作">
+        <template #default="{ row }">
+          <el-button
+            type="primary"
+            size="small"
+            :disabled="row.level === 4 ? true : false"
+            @click="handleAdd(row)"
+            >添加{{ row.level === 3 ? '功能' : '菜单' }}</el-button
+          >
+          <el-button
+            type="primary"
+            size="small"
+            :disabled="row.level === 1 ? true : false"
+            @click="handleEdit(row)"
+            >编辑</el-button
+          >
+          <el-popconfirm
+            @confirm="handleDelete(row.id)"
+            :title="`确认删除${row.name}吗？`"
+          >
+            <template #reference>
+              <el-button
+                type="primary"
+                size="small"
+                :disabled="row.level === 1 ? true : false"
+                >删除</el-button
+              >
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-dialog
+      v-model="dialogVisible"
+      :title="menuParams.id ? '更新菜单' : '添加菜单'"
+      width="500"
+    >
+      <el-form :model="menuParams">
+        <el-form-item label="菜单名">
+          <el-input
+            placeholder="请输入菜单名"
+            v-model="menuParams.name"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="权限值">
+          <el-input
+            placeholder="请输入权限值"
+            v-model="menuParams.code"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="save"> 确定 </el-button>
+        </div>
       </template>
-    </el-table-column>
-  </el-table>
-  <el-dialog
-    v-model="dialogVisible"
-    :title="menuParams.id ? '更新菜单' : '添加菜单'"
-    width="500"
-  >
-    <el-form :model="menuParams">
-      <el-form-item label="菜单名">
-        <el-input
-          placeholder="请输入菜单名"
-          v-model="menuParams.name"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="权限值">
-        <el-input
-          placeholder="请输入权限值"
-          v-model="menuParams.code"
-        ></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="save"> 确定 </el-button>
-      </div>
-    </template>
-  </el-dialog>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -78,7 +80,7 @@ import type {
   premissionList,
   premission,
   MenuParams,
-} from '@/api/acl/menu/type'
+} from '@/types/menu'
 
 // 菜单列表
 let permissionList = ref<premissionList>([])

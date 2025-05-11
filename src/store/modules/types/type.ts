@@ -1,6 +1,6 @@
 //路由对象的ts类型，自带的
 import type { RouteRecordRaw } from 'vue-router'
-import type { CategoryObj } from '@/api/product/attr/type'
+import type { CategoryObj } from '@/types/attr'
 //定义小仓库数据state类型
 export interface UserState {
   token: string | null

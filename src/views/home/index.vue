@@ -1,30 +1,32 @@
 <template>
-  <div class="box">
-    <img :src="userStore.avatar" alt="" />
-    <div class="right">
-      <h1>{{ getTime() }}好ʕ •ᴥ•ʔAdmin</h1>
-      <p>Vue-Admin</p>
-    </div>
-    <!-- <img src="@/assets/images/coffee-BJTYvIRC.svg" alt="" /> -->
-  </div>
-  <el-card shadow="never" style="margin: 30px 0">
-    <template #header>
-      <div>
-        <span>技术栈</span>
+  <div>
+    <div class="box">
+      <img :src="userStore.avatar" alt="" />
+      <div class="right">
+        <h1>{{ getTime() }}好ʕ •ᴥ•ʔAdmin</h1>
+        <p>Vue-Admin</p>
       </div>
-    </template>
-    <div class="content">
-      <div class="item" v-for="item in list" :key="item">
-        <div class="logo">
-          <img :src="item.img" alt="" />
-          <button :style="`background-color:${item.color}`" size="small">
-            <a :href="item.href" target="_blank">Go</a>
-          </button>
+      <!-- <img src="@/assets/images/coffee-BJTYvIRC.svg" alt="" /> -->
+    </div>
+    <el-card shadow="never" style="margin: 30px 0">
+      <template #header>
+        <div>
+          <span>技术栈</span>
         </div>
-        <div class="item-content">{{ item.content }}</div>
+      </template>
+      <div class="content">
+        <div class="item" v-for="item in list" :key="item">
+          <div class="logo">
+            <img :src="item.img" alt="" />
+            <button :style="`background-color:${item.color}`" size="small">
+              <a :href="item.href" target="_blank">Go</a>
+            </button>
+          </div>
+          <div class="item-content">{{ item.content }}</div>
+        </div>
       </div>
-    </div>
-  </el-card>
+    </el-card>
+  </div>
 </template>
 
 <script setup>

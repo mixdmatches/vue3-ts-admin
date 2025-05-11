@@ -5,20 +5,17 @@ import Category from './Category/index.vue'
 
 //引入element-plus提供的全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { App } from 'vue'
 
-const allGloablComponent: any = { SvgIcon, Pagination, Category }
+const allGloablComponent = { SvgIcon, Pagination, Category }
 
 //对外暴露插件对象
 export default {
-  //必须叫install方法
-  install(app: any) {
+  install(app: App) {
     //注册项目的全局组件
     Object.keys(allGloablComponent).forEach((key) => {
-      //注册为全局组件
       app.component(key, allGloablComponent[key])
     })
-    //将图标注册为全局组件
-    //数组解构
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }

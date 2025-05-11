@@ -25,19 +25,10 @@ export default defineConfig(({ command, mode }) => {
         '@': path.resolve('./src'), // 相对路径别名配置，使用 @ 代替 src
       },
     },
-    //scss全局变量一个配置
-    // css: {
-    //   preprocessorOptions: {
-    //     scss: {
-    //       javascriptEnabled: true,
-    //       additionalData: '@import "./src/styles/variable.scss";',
-    //     },
-    //   },
-    // },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/styles/variable.scss";`, // 引入全局变量文件
+          additionalData: `@use "@/styles/variable.scss" as *;`, // 引入全局变量文件
         },
       },
     },
@@ -52,6 +43,7 @@ export default defineConfig(({ command, mode }) => {
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
+      open: true,
     },
   }
 })

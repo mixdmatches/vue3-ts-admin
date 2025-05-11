@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { premissionResponseData, MenuParams } from './type'
+import { premissionResponseData, MenuParams } from '@/types/menu'
 enum API {
   //获取菜单
   GETMENU_URL = '/admin/acl/permission',
@@ -13,7 +13,7 @@ enum API {
 
 //获取菜单
 export const reqMenuList = () =>
-  request.get<any, premissionResponseData>(API.GETMENU_URL)
+  request.get<unknown, premissionResponseData>(API.GETMENU_URL)
 
 // 添加与更新的方法
 export const reqAddOrUpdateMenu = (data: MenuParams) => {

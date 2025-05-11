@@ -1,5 +1,5 @@
-import { loginFormData } from '@/api/user/type'
-function createUserList() {
+import { loginFormData } from '@/types/my'
+const createUserList = () => {
   return [
     {
       userId: 1,

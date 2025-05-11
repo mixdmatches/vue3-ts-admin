@@ -17,7 +17,7 @@
       ></el-input>
     </el-form-item>
     <el-form-item label="平台属性">
-      <el-form inline>
+      <el-form :inline="true">
         <el-form-item
           v-for="item in attrArr"
           :key="item.id"
@@ -39,7 +39,7 @@
       </el-form>
     </el-form-item>
     <el-form-item label="销售属性">
-      <el-form inline>
+      <el-form>
         <el-form-item
           v-for="item in saleArr"
           :key="item.id"
@@ -64,13 +64,13 @@
           align="center"
         ></el-table-column>
         <el-table-column label="图片">
-          <template #="{ row }">
+          <template #default="{ row }">
             <img style="height: 50px" :src="row.imgUrl" alt="" />
           </template>
         </el-table-column>
         <el-table-column label="名称" prop="imgName"></el-table-column>
         <el-table-column label="操作">
-          <template #="{ row }">
+          <template #default="{ row }">
             <el-button type="primary" size="small" @click="handler(row)"
               >设为默认</el-button
             >
@@ -88,7 +88,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { SkuData } from '@/api/product/spu/type'
+import type { SkuData } from '@/types/sku'
 let $emit = defineEmits(['changeScence'])
 // i引入API
 import { reqAttr } from '@/api/product/attr'
@@ -115,10 +115,10 @@ let skuParams = reactive<SkuData>({
   price: '',
   weight: '',
   skuDesc: '',
-
   skuAttrValueList: [],
   skuSaleAttrValueList: [],
   skuDefaultImg: '',
+  skuImageList: [],
 })
 // 取消按钮回调
 const cancel = () => {
@@ -128,7 +128,7 @@ const cancel = () => {
 const save = async () => {
   //整理参数
   //平台属性
-  skuParams.skuAttrValueList = attrArr.value.reduce((prev: any, next: any) => {
+  skuParams.skuAttrValueList = attrArr.value.reduce((prev, next) => {
     if (next.attrIdAndValueId) {
       let [attrId, valueId] = next.attrIdAndValueId.split(':')
       prev.push({
@@ -139,19 +139,16 @@ const save = async () => {
     return prev
   }, [])
   // 销售属性
-  skuParams.skuSaleAttrValueList = saleArr.value.reduce(
-    (prev: any, next: any) => {
-      if (next.saleIdAndValueId) {
-        let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(':')
-        prev.push({
-          saleAttrId,
-          saleAttrValueId,
-        })
-      }
-      return prev
-    },
-    [],
-  )
+  skuParams.skuSaleAttrValueList = saleArr.value.reduce((prev, next) => {
+    if (next.saleIdAndValueId) {
+      let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(':')
+      prev.push({
+        saleAttrId,
+        saleAttrValueId,
+      })
+    }
+    return prev
+  }, [])
   //发请求
   let result = await reqAddSku(skuParams)
   if (result.code === 200) {
@@ -163,9 +160,9 @@ const save = async () => {
   }
 }
 // 设置默认图片
-const handler = (row: any) => {
+const handler = (row) => {
   // 取消所有选中
-  imgArr.value.forEach((item: any) => {
+  imgArr.value.forEach((item) => {
     tableRef.value.toggleRowSelection(item, false)
   })
   // 复选框选中
@@ -178,7 +175,7 @@ const handler = (row: any) => {
 const initSkuData = async (
   c1Id: number | string,
   c2Id: number | string,
-  spu: any,
+  spu,
 ) => {
   // 收集数据
   skuParams.category3Id = spu.category3Id

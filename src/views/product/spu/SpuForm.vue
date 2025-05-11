@@ -84,7 +84,7 @@
           prop="saleAttrName"
         ></el-table-column>
         <el-table-column label="销售属性值">
-          <template #="{ row }">
+          <template #default="{ row }">
             <el-tag
               @close="row.spuSaleAttrValueList.splice($index, 1)"
               style="margin: 0 5px"
@@ -113,7 +113,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="120px">
-          <template #="{ $index }">
+          <template #default="{ $index }">
             <el-button
               @click="saleAttr.splice($index, 1)"
               type="danger"
@@ -146,7 +146,7 @@ import type {
   SaleAttr,
   HasSaleAttr,
   SaleAttrValue,
-} from '@/api/product/spu/type'
+} from '@/types/spu'
 import {
   reqAllTradeMark,
   reqSpuImageList,
@@ -154,7 +154,7 @@ import {
   reqAllSaleAttr,
   reqAddOrUpdateSpu,
 } from '@/api/product/spu'
-import { TradeMark } from '@/api/product/trademark/type'
+import { TradeMark } from '@/types/trademark'
 import { ElMessage } from 'element-plus'
 
 let $emit = defineEmits(['changeScene'])
@@ -219,7 +219,7 @@ const initHasSpuData = async (spu: SpuData) => {
 }
 
 //照片墙点击预览按钮的触发钩子
-const handlePictureCardPreview = (file: any) => {
+const handlePictureCardPreview = (file) => {
   dialogImageUrl.value = file.url
   //对话框弹出来
   dialogVisible.value = true
@@ -229,7 +229,7 @@ const handlePictureCardPreview = (file: any) => {
 const handleRemove = () => {}
 
 //照片墙上传之前的钩子约束文件大小与类型
-const handlerUpload = (file: any) => {
+const handlerUpload = (file) => {
   if (
     file.type == 'image/png' ||
     file.type == 'image/jpeg' ||
@@ -325,10 +325,10 @@ const toLook = (row: SaleAttr) => {
 const save = async () => {
   //整理数据
   //1：照片墙的数据
-  spuParams.value.spuImageList = imgList.value.map((item: any) => {
+  spuParams.value.spuImageList = imgList.value.map((item) => {
     return {
       imgName: item.name, //图片名字
-      imgUrl: (item.response && item.response.data) || item.url,
+      imgUrl: item.url,
     }
   })
   //2.整理销售属性的数据

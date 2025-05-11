@@ -4,7 +4,7 @@ import type {
   loginFormData,
   loginResponseData,
   userInfoResponseData,
-} from './type'
+} from '@/types/my'
 enum API {
   LOGIN_URL = '/admin/acl/index/login',
   USERINFO_URL = '/admin/acl/index/info',
