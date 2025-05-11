@@ -4,7 +4,20 @@ import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 import css from '@eslint/css'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import stylelint from 'stylelint'
 import { defineConfig } from 'eslint/config'
+
+// 定义一个自定义的处理器来处理 SCSS 文件
+const scssProcessor = {
+  preprocess: (text) => {
+    return [text]
+  },
+  postprocess: (messages) => {
+    return messages[0]
+  },
+  supportsAutofix: true,
+}
+
 export default defineConfig([
   {
     ignores: ['node_modules', 'dist', 'public'],
@@ -45,6 +58,27 @@ export default defineConfig([
     plugins: { css },
     language: 'css/css',
     extends: ['css/recommended'],
+  },
+  {
+    files: ['**/*.{scss}'],
+    plugins: {
+      stylelint: {
+        processors: {
+          '.scss': scssProcessor,
+        },
+        rules: stylelint.rules,
+      },
+    },
+    languageOptions: {
+      parser: stylelint.parse,
+      parserOptions: {
+        syntax: 'scss',
+      },
+    },
+    rules: {
+      'scss/at-rule-no-unknown': 'error',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    },
   },
   eslintPluginPrettierRecommended,
 ])

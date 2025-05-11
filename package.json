@@ -8,7 +8,8 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "build:test": "vue-tsc && vite build --mode test",
-    "build:pro": "vue-tsc && vite build --mode production"
+    "build:pro": "vue-tsc && vite build --mode production",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -33,15 +34,34 @@
     "eslint-plugin-vue": "^9.33.0",
     "fast-glob": "^3.3.2",
     "globals": "^15.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
     "mockjs": "^1.1.0",
     "prettier": "^3.4.2",
     "sass": "^1.80.6",
     "sass-embedded": "^1.80.6",
+    "stylelint": "^16.19.1",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.17.0",
     "vite": "^5.4.10",
     "vite-plugin-mock": "^3.0.2",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^2.1.8"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }
