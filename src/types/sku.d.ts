@@ -21,18 +21,18 @@ export interface saleAttr {
 }
 
 export interface SkuData {
-  category3Id?: string | number
-  spuId?: string | number
-  tmId?: string | number
-  skuName?: string
-  price?: string | number
-  weight?: string | number
-  skuDesc?: string
-  skuAttrValueList?: Attr[]
-  skuSaleAttrValueList?: saleAttr[]
-  skuDefaultImg?: string
-  isSale?: number
-  id?: number
+  category3Id: string | number
+  spuId: string | number
+  tmId: string | number
+  skuName: string
+  price: string | number
+  weight: string | number
+  skuDesc: string
+  skuAttrValueList: Attr[]
+  skuSaleAttrValueList: saleAttr[]
+  skuDefaultImg: string
+  isSale: number
+  id: number
   skuImageList: ImageItem[]
 }
 type ImageItem = {

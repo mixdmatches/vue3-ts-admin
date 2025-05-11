@@ -119,6 +119,8 @@ let skuParams = reactive<SkuData>({
   skuSaleAttrValueList: [],
   skuDefaultImg: '',
   skuImageList: [],
+  isSale: 0,
+  id: 0,
 })
 // 取消按钮回调
 const cancel = () => {

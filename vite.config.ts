@@ -45,5 +45,19 @@ export default defineConfig(({ command, mode }) => {
       },
       open: true,
     },
+    build: {
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'js/[name]-[hash].js', // 将 JS 文件放入 js 文件夹
+          entryFileNames: 'js/[name]-[hash].js', // 将入口 JS 文件放入 js 文件夹
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name?.endsWith('.css')) {
+              return 'css/[name]-[hash][extname]' // 将 CSS 文件放入 css 文件夹
+            }
+            return 'assets/[name]-[hash][extname]' // 其他静态资源放入 assets 文件夹
+          },
+        },
+      },
+    },
   }
 })
