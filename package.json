@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "build:test": "vue-tsc && vite build --mode test",
     "build:pro": "vue-tsc && vite build --mode production",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --ext .js,.vue,.ts . --fix",
+    "lint:style": "stylelint \"**/*.{vue,html,css,scss}\" --fix",
+    "lint:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,vue,html,css,scss,json,md}\""
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
